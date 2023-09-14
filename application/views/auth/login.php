@@ -142,10 +142,10 @@ a {
             <nav>
                 <label for="SignUp">Login</label>
             </nav>
-            <form action="" class="mt-5" id="SignInFormData">
-                <input type="text" id="email" placeholder="Email">
-                <input type="password" id="password" placeholder="Password">
-                <button type="button" class="mt-3" title="Sing In">Login</button>
+            <form action="<?php echo base_url(); ?>Auth/aksi_login" method="post" class="mt-5" id="SignInFormData">
+                <input type="email" name="email" id="email" placeholder="Email">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <button type="submit" class="mt-3">Login</button>
             </form>
         </section>
 </body>
