@@ -72,32 +72,35 @@
    </div>
 </aside>
 
-<table class="table-auto border-2	" style="margin-left: 40%; margin-top: 10%;">
-  <thead>
-    <tr class="border-2">
-      <th class="border-2">Song</th>
-      <th class="border-2">Artist</th>
-      <th class="border-2">Year</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="border-2">
-      <td class="border-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-      <td class="border-2">Malcolm Lockyer</td>
-      <td class="border-2">1961</td>
-    </tr>
-    <tr class="border-2">
-      <td class="border-2">Witchy Woman</td>
-      <td class="border-2">The Eagles</td>
-      <td class="border-2">1972</td>
-    </tr>
-    <tr class="border-2">
-      <td class="border-2">Shining Star</td>
-      <td class="border-2">Earth, Wind, and Fire</td>
-      <td class="border-2">1975</td>
-    </tr>
-  </tbody>
-</table>
+<main class="flex-1 overflow-x-hidden overflow-y-auto ">
+            <div class="container mx-auto px-6 py-8">
+                <!-- Table -->
+                <div class="bg-white p-6 rounded-lg" style="margin-left: 300px;">
+                    <table class="min-w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left border border-black">No</th>
+                                <th class="text-left border border-black">Nama Siswa</th>
+                                <th class="text-left border border-black">NISN</th>
+                                <th class="text-left border border-black">Gender</th>
+                                <th class="text-left border border-black">Kelas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data Siswa -->
+                            <tr>
+                                <td class="border border-black">1</td>
+                                <td class="border border-black">John Doe</td>
+                                <td class="border border-black">123456</td>
+                                <td class="border border-black">Male</td>
+                                <td class="border border-black">10A</td>
+                            </tr>
+                            <!-- Tambahkan baris data siswa lainnya sesuai kebutuhan -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
 
 </body>
 </html>
