@@ -55,14 +55,14 @@
       </a>
       <ul class="space-y-2 font-medium">
          <li>
-            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a href="<?php echo base_url(); ?>admin" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
             <i class="fa-solid fa-chart-line fa-xl"></i>
                <span class="ml-3">Dashboard</span>
             </a>
          </li>
          <li>
             <a href="<?php echo base_url(
-                'siswa'
+                'admin/siswa'
             ); ?>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
             <i class="fa-solid fa-graduation-cap fa-xl"></i>
                <span class="flex-1 ml-3 whitespace-nowrap">Siswa</span>
@@ -71,7 +71,7 @@
       </ul>
    </div>
 </aside>
-<h1 class="text-5xl font-bold" style="margin-left: 300px;">Selamat datang <?php echo $this->session->userdata(
+<h1 class="text-5xl font-bold" style="margin-left: 300px;">Dashboard <?php echo $this->session->userdata(
     'username'
 ); ?></h1>
     <div class="flex space-x-4 p-2 my-5" style="margin-left: 300px;">

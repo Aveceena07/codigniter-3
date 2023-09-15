@@ -62,7 +62,7 @@
          </li>
          <li>
             <a href="<?php echo base_url(
-                'siswa'
+                'admin/siswa'
             ); ?>" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
             <i class="fa-solid fa-graduation-cap fa-xl"></i>
                <span class="flex-1 ml-3 whitespace-nowrap">Siswa</span>
@@ -76,7 +76,12 @@
             <div class="container mx-auto px-6 py-8">
                 <!-- Table -->
                 <div class="bg-white p-6 rounded-lg" style="margin-left: 300px;">
-                    <table class="min-w-full">
+                  <a href="<?php echo base_url(
+                      'admin/tambah_siswa'
+                  ); ?>"  class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 rounded">
+                  <i class="fa-solid fa-plus"></i>
+                  </a>
+                    <table class="min-w-full mt-3">
                         <thead>
                             <tr>
                                 <th class="text-left border border-black">No</th>
@@ -84,23 +89,50 @@
                                 <th class="text-left border border-black">NISN</th>
                                 <th class="text-left border border-black">Gender</th>
                                 <th class="text-left border border-black">Kelas</th>
+                                <th class="text-left border border-black">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Data Siswa -->
+                          <?php
+                          $no = 0;
+                          foreach ($siswa as $row):
+                              $no++; ?>
                             <tr>
-                                <td class="border border-black">1</td>
-                                <td class="border border-black">John Doe</td>
-                                <td class="border border-black">123456</td>
-                                <td class="border border-black">Male</td>
-                                <td class="border border-black">10A</td>
+                                <td class="border border-black"><?php echo $no; ?></td>
+                                <td class="border border-black"><?php echo $row->nama_siswa; ?></td>
+                                <td class="border border-black"><?php echo $row->nisn; ?></td>
+                                <td class="border border-black"><?php echo $row->gender; ?></td>
+                                <td class="border border-black"><?php echo tampil_full_kelas_byid(
+                                    $row->id_kelas
+                                ); ?></td>
+                                <td class="text-center border border-black">
+                                  <button onclick="hapus(<?php echo $row->id_siswa; ?>)" class="bg-red-700	 hover:bg-red-900	 text-white font-bold py-2 px-4 rounded">
+                                  <i class="fa-solid fa-trash"></i> 
+                                  </button>
+                                  <a href="<?php echo base_url(
+                                      'admin/ubah_siswa'
+                                  ); ?>" class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded">
+                                  <i class="fa-solid fa-pen-to-square"></i>
+                                  </a>
+                                </td>
                             </tr>
-                            <!-- Tambahkan baris data siswa lainnya sesuai kebutuhan -->
+                            <?php
+                          endforeach;
+                          ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </main>
-
+        <script>
+        function hapus(id) {
+        var yes = confirm('Yakin Dex?');
+        if (yes == true) {
+        window.location.href = "<?php echo base_url(
+            'admin/hapus_siswa/'
+        ); ?>" + id;
+    }
+  }
+        </script>
 </body>
 </html>
