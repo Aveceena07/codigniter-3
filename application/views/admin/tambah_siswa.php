@@ -34,15 +34,19 @@
                     <option selected>Pilih Kelas</option>
                     <?php foreach ($kelas as $row): ?>
                         <option value="<?php echo $row->id; ?>">
-                        <?php echo $row->tingkat_kelas .
-                            ' ' .
-                            $row->jurusan_kelas; ?>
+                            <?php echo $row->tingkat_kelas .
+                                ' ' .
+                                $row->jurusan_kelas; ?>
                         </option>
                         <?php endforeach; ?>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
-        </form>
-    </div>
+                    </select>
+                </div>
+                <div class="mb-3 col-6">
+                    <label for="nisn" class="form-label">Foto</label>
+                    <input type="file" class="form-control" id="nisn" name="foto">
+                </div>
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+            </form>
+        </div>
 </body>
 </html>
