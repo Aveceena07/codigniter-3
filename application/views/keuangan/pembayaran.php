@@ -12,61 +12,54 @@
 </head>
 
 <body>
-    <?php $this->load->view('sidebar'); ?>
+    <?php $this->load->view('sidebar_keuangan'); ?>
     <main class="flex-1 overflow-x-hidden overflow-y-auto ">
         <div class="container mx-auto px-6 py-8">
             <!-- Table -->
             <div class="bg-white p-6 rounded-lg" style="margin-left: 300px;">
                 <a href="<?php echo base_url(
-                      'admin/tambah_siswa'
-                  ); ?>" class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 rounded">
+                    'keuangan/tambah_pembayaran'
+                ); ?>" class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 rounded">
                     <i class="fa-solid fa-plus"></i>
                 </a>
                 <table class="min-w-full mt-3">
                     <thead>
                         <tr>
                             <th class="text-left border border-black">No</th>
-                            <th class="text-left border border-black">Foto Siswa</th>
                             <th class="text-left border border-black">Nama Siswa</th>
-                            <th class="text-left border border-black">NISN</th>
-                            <th class="text-left border border-black">Gender</th>
-                            <th class="text-left border border-black">Kelas</th>
+                            <th class="text-left border border-black">Jenis Pembayaran</th>
+                            <th class="text-left border border-black">Total Pembayaran</th>
                             <th class="text-left border border-black">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                          $no = 0;
-                          foreach ($siswa as $row):
-                              $no++; ?>
+                        $no = 0;
+                        foreach ($pembayaran as $row):
+                            $no++; ?>
                         <tr>
                             <td class="border border-black"><?php echo $no; ?></td>
-                            <td class="border border-black"><img src="<?php echo base_url(
-                                    'images/siswa/' . $row->foto
-                                ); ?>" width="50" alt=""></td>
-                            <td class="border border-black"><?php echo $row->nama_siswa; ?></td>
-                            <td class="border border-black"><?php echo $row->nisn; ?></td>
-                            <td class="border border-black"><?php echo $row->gender; ?></td>
-                            <td class="border border-black"><?php echo tampil_full_kelas_byid(
-                                    $row->id_kelas
-                                ); ?></td>
+                            <td class="border border-black"><?php echo nama_siswa(
+                                $row->id_siswa
+                            ); ?></td>
+                            <td class="border border-black"><?php echo $row->jenis_pembayaran; ?></td>
+                            <td class="border border-black"><?php echo $row->total_pembayaran; ?></td>
                             <td class="text-center border border-black">
-                                <button onclick="hapus(<?php echo $row->id_siswa; ?>)"
+                                <button onclick="hapus(<?php echo $row->id; ?>)"
                                     class="bg-red-700	 hover:bg-red-900	 text-white font-bold py-2 px-4 rounded">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                                 <a href="<?php echo base_url(
-                                      'admin/ubah_siswa/'
-                                  ) .
-                                      $row->id_siswa; ?>"
+                                    'keuangan/ubah_pembayaran/'
+                                ) . $row->id; ?>"
                                     class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             </td>
                         </tr>
                         <?php
-                          endforeach;
-                          ?>
+                        endforeach;
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -77,8 +70,8 @@
         var yes = confirm('Yakin Dex?');
         if (yes == true) {
             window.location.href = "<?php echo base_url(
-            'admin/hapus_siswa/'
-        ); ?>" + id;
+                'keuangan/hapus_pembayaran/'
+            ); ?>" + id;
         }
     }
     </script>
