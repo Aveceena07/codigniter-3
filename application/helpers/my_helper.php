@@ -9,6 +9,8 @@ function tampil_full_kelas_byid($id)
         return $stmt;
     }
 }
+
+// Menampilkan nama siswa
 function nama_siswa($id)
 {
     $ci = &get_instance();
@@ -18,5 +20,11 @@ function nama_siswa($id)
         $stmt = $c->nama_siswa;
         return $stmt;
     }
+}
+
+// Agar berubah menjadi rupiah
+function convRupiah($value)
+{
+    return 'Rp. ' . number_format($value);
 }
 ?>

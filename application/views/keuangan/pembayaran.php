@@ -43,7 +43,9 @@
                                 $row->id_siswa
                             ); ?></td>
                             <td class="border border-black"><?php echo $row->jenis_pembayaran; ?></td>
-                            <td class="border border-black"><?php echo $row->total_pembayaran; ?></td>
+                            <td class="border border-black"><?php echo convRupiah(
+                                $row->total_pembayaran
+                            ); ?></td>
                             <td class="text-center border border-black">
                                 <button onclick="hapus(<?php echo $row->id; ?>)"
                                     class="bg-red-700	 hover:bg-red-900	 text-white font-bold py-2 px-4 rounded">
