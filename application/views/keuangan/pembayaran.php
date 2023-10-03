@@ -22,6 +22,56 @@
                 ); ?>" class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 rounded">
                     <i class="fa-solid fa-plus"></i>
                 </a>
+                <!-- Using utilities: -->
+                <a href="<?php echo base_url(
+                    'keuangan/export'
+                ); ?>" class="bg-blue-500 hover:bg-blue-700 text-white ml-2 font-bold py-2 px-4 rounded">
+                    <i class="fa-solid fa-file-export"></i>
+                </a>
+
+                <!-- Modal toggle -->
+                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
+                    class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    type="button">
+                    IMPORT
+                </button>
+
+                <!-- Main modal -->
+                <div id="authentication-modal" tabindex="-1" aria-hidden="true"
+                    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative w-full max-w-md max-h-full">
+                        <!-- Modal content -->
+                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                            <button type="button"
+                                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                data-modal-hide="authentication-modal">
+                                <svg class="w-3 h-3" aria-hidden="true" fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                            <div class="px-6 py-6 lg:px-8">
+                                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Import Data</h3>
+                                <form action="<?= base_url(
+                                    'keuangan/import'
+                                ) ?>" class="space-y-6" method="post" enctype="multipart/form-data">
+                                    <div>
+                                        <label for="file"
+                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih
+                                            File</label>
+                                        <input type="file" name="file"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            required>
+                                    </div>
+                                    <input type="submit" name="import" value="Import"
+                                        class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"></input>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <table class="min-w-full mt-3">
                     <thead>
                         <tr>
@@ -77,6 +127,32 @@
         }
     }
     </script>
+    <script>
+    // Fungsi untuk menampilkan modal
+    function showModal() {
+        var modal = document.getElementById("authentication-modal");
+        modal.classList.remove("hidden");
+    }
+
+    // Fungsi untuk menyembunyikan modal
+    function hideModal() {
+        var modal = document.getElementById("authentication-modal");
+        modal.classList.add("hidden");
+    }
+
+    // Ambil tombol yang memicu modal
+    var modalToggleBtn = document.querySelector("[data-modal-toggle='authentication-modal']");
+
+    // Tambahkan event listener ke tombol modal
+    modalToggleBtn.addEventListener("click", showModal);
+
+    // Ambil tombol untuk menutup modal
+    var closeModalBtn = document.querySelector("[data-modal-hide='authentication-modal']");
+
+    // Tambahkan event listener ke tombol untuk menutup modal
+    closeModalBtn.addEventListener("click", hideModal);
+    </script>
+
 </body>
 
 </html>
