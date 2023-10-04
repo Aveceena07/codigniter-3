@@ -188,7 +188,7 @@ class Keuangan extends CI_Controller
             $sheet->setCellValue('B' . $numrow, $data->jenis_pembayaran);
             $sheet->setCellValue('C' . $numrow, $data->total_pembayaran);
             $sheet->setCellValue('D' . $numrow, $data->nama_siswa);
-            $sheet->setCellValue(
+            heet->setCellValue(
                 'E' . $numrow,
                 $data->tingkat_kelas . ' ' . $data->jurusan_kelas
             );

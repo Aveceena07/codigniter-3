@@ -18,9 +18,14 @@
             <!-- Table -->
             <div class="bg-white p-6 rounded-lg" style="margin-left: 300px;">
                 <a href="<?php echo base_url(
-                      'admin/tambah_siswa'
-                  ); ?>" class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 rounded">
+                    'admin/tambah_siswa'
+                ); ?>" class="bg-lime-500 hover:bg-lime-600 text-white font-bold py-2 px-4 rounded">
                     <i class="fa-solid fa-plus"></i>
+                </a>
+                <a href="<?php echo base_url(
+                    'admin/export'
+                ); ?>" class="bg-blue-500 hover:bg-blue-700 ml-2 text-white font-bold py-2 px-4 rounded">
+                    <i class="fa-solid fa-file-export"></i>
                 </a>
                 <table class="min-w-full mt-3">
                     <thead>
@@ -36,39 +41,46 @@
                     </thead>
                     <tbody>
                         <?php
-                          $no = 0;
-                          foreach ($siswa as $row):
-                              $no++; ?>
+                        $no = 0;
+                        foreach ($siswa as $row):
+                            $no++; ?>
                         <tr>
                             <td class="border border-black"><?php echo $no; ?></td>
                             <td class="border border-black"><img src="<?php echo base_url(
-                                    'images/siswa/' . $row->foto
-                                ); ?>" width="50" alt=""></td>
+                                'images/siswa/' . $row->foto
+                            ); ?>" width="50" alt=""></td>
                             <td class="border border-black"><?php echo $row->nama_siswa; ?></td>
                             <td class="border border-black"><?php echo $row->nisn; ?></td>
                             <td class="border border-black"><?php echo $row->gender; ?></td>
                             <td class="border border-black"><?php echo tampil_full_kelas_byid(
-                                    $row->id_kelas
-                                ); ?></td>
+                                $row->id_kelas
+                            ); ?></td>
                             <td class="text-center border border-black">
                                 <button onclick="hapus(<?php echo $row->id_siswa; ?>)"
                                     class="bg-red-700	 hover:bg-red-900	 text-white font-bold py-2 px-4 rounded">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                                 <a href="<?php echo base_url(
-                                      'admin/ubah_siswa/'
-                                  ) .
-                                      $row->id_siswa; ?>"
+                                    'admin/ubah_siswa/'
+                                ) . $row->id_siswa; ?>"
                                     class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </a>
                             </td>
                         </tr>
                         <?php
-                          endforeach;
-                          ?>
+                        endforeach;
+                        ?>
                     </tbody>
                 </table>
+                <form class="mt-5" method="post" enctype="multipart/form-data"
+                    action="<?php echo base_url('admin/import'); ?>">
+                    <input type="file" name="file" />
+                    <input type="submit" name="import"
+                        class="inline-block rounded bg-red-600 px-4 py-2 text-xs font-medium text-white"
+                        value="Import" />
+
+                </form>
             </div>
         </div>
     </main>
@@ -77,8 +89,8 @@
         var yes = confirm('Yakin Dex?');
         if (yes == true) {
             window.location.href = "<?php echo base_url(
-            'admin/hapus_siswa/'
-        ); ?>" + id;
+                'admin/hapus_siswa/'
+            ); ?>" + id;
         }
     }
     </script>
