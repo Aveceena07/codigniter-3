@@ -416,67 +416,72 @@ class Admin extends CI_Controller
     public function import()
     {
         if (isset($_FILES['file']['name'])) {
-            $allowedFileType = [
-                'application/vnd.ms-excel',
-                'text/xls',
-                'text/xlsx',
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            ];
-            if (in_array($_FILES['file']['type'], $allowedFileType)) {
-                $path = $_FILES['file']['tmp_name'];
-                $object = \PhpOffice\PhpSpreadsheet\IOFactory::load($path);
-
-                foreach ($object->getWorksheetIterator() as $worksheet) {
-                    $highestRow = $worksheet->getHighestRow();
-                    $highestColumn = $worksheet->getHighestColumn();
-                    for ($row = 2; $row <= $highestRow; $row++) {
-                        $nama_siswa = $worksheet
-                            ->getCellByColumnAndRow(2, $row)
-                            ->getValue();
-                        $nisn = $worksheet
-                            ->getCellByColumnAndRow(3, $row)
-                            ->getValue();
-                        $gender = $worksheet
-                            ->getCellByColumnAndRow(4, $row)
-                            ->getValue();
-                        $kelas = $worksheet
-                            ->getCellByColumnAndRow(5, $row)
-                            ->getValue();
-
-                        // Pisahkan nilai 'kelas' menjadi 'tingkat_kelas' dan 'jurusan_kelas' berdasarkan spasi
-                        list($tingkat_kelas, $jurusan_kelas) = explode(
-                            ' ',
-                            $kelas,
-                            2
-                        );
-
-                        // Panggil fungsi untuk mendapatkan id_kelas berdasarkan 'tingkat_kelas' dan 'jurusan_kelas'
-                        $id_kelas = $this->m_model->getKelasByTingkatJurusan(
-                            $tingkat_kelas,
-                            $jurusan_kelas
-                        );
-
-                        if ($id_kelas) {
-                            $data = [
-                                'nama_siswa' => $nama_siswa,
-                                'nisn' => $nisn,
-                                'gender' => $gender,
-                                'id_kelas' => $id_kelas,
-                            ];
-
-                            $this->m_model->tambah_data('siswa', $data);
-                        } else {
-                            // Handle jika id_kelas tidak ditemukan
+            $path = $_FILES['file']['tmp_name'];
+            $object = PhpOffice\PhpSpreadsheet\IOFactory::load($path);
+            foreach ($object->getWorksheetIterator() as $worksheet) {
+                $highestRow = $worksheet->getHighestRow();
+                $highestColumn = $worksheet->getHighestColumn();
+                for ($row = 2; $row <= $highestRow; $row++) {
+                    $id_siswa = $worksheet
+                        ->getCellByColumnAndRow(1, $row)
+                        ->getValue();
+                    $nama_siswa = $worksheet
+                        ->getCellByColumnAndRow(2, $row)
+                        ->getValue();
+                    $nisn = $worksheet
+                        ->getCellByColumnAndRow(3, $row)
+                        ->getValue();
+                    $gender = $worksheet
+                        ->getCellByColumnAndRow(4, $row)
+                        ->getValue();
+                    $kelas = $worksheet
+                        ->getCellByColumnAndRow(5, $row)
+                        ->getValue();
+    
+                    list($tingkat_kelas, $jurusan_kelas) = explode(
+                        ' ',
+                        $kelas,
+                        2
+                    );
+    
+                    $id_kelas = $this->m_model->getKelasByTingkatJurusan(
+                        $tingkat_kelas,
+                        $jurusan_kelas
+                    );
+    
+                    if ($id_kelas) {
+                        $file_name = 'User.png';
+    
+                        if (isset($_FILES['foto']['name']) && !empty($_FILES['foto']['name'])) {
+                            $file_name = $_FILES['foto']['name'];
+                            $file_temp = $_FILES['foto']['tmp_name'];
+                            $kode = round(microtime(true) * 1000);
+                            $file_name = $kode . '_' . $file_name;
+                            $upload_path = './images/siswa/' . $file_name;
+    
+                            if (move_uploaded_file($file_temp, $upload_path)) {
+                            } else {
+                                $file_name = 'User.png';
+                            }
                         }
+    
+                        $data = [
+                            'nama_siswa' => $nama_siswa,
+                            'nisn' => $nisn,
+                            'gender' => $gender,
+                            'id_kelas' => $id_kelas,
+                            'foto' => $file_name,
+                        ];
+    
+                        $this->m_model->tambah_data('siswa', $data);
+    
+                        $siswa_exist = $this->m_model->get_by_nisn($nisn);
                     }
                 }
-
-                redirect(base_url('admin/siswa'));
-            } else {
-                echo 'Tipe file tidak didukung.';
             }
+            redirect(base_url('admin/siswa'));
         } else {
-            echo 'File tidak diunggah.';
+            echo 'Invalid File';
         }
     }
 }
