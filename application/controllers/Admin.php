@@ -13,7 +13,7 @@ class Admin extends CI_Controller
         $this->load->helper('my_helper');
         $this->load->library('upload');
         if (
-            $this->session->userdata('logged_in') != true &&
+            $this->session->userdata('logged_in') != true ||
             $this->session->userdata('role') !== 'admin'
         ) {
             redirect(base_url() . 'auth');
@@ -437,34 +437,37 @@ class Admin extends CI_Controller
                     $kelas = $worksheet
                         ->getCellByColumnAndRow(5, $row)
                         ->getValue();
-    
+
                     list($tingkat_kelas, $jurusan_kelas) = explode(
                         ' ',
                         $kelas,
                         2
                     );
-    
+
                     $id_kelas = $this->m_model->getKelasByTingkatJurusan(
                         $tingkat_kelas,
                         $jurusan_kelas
                     );
-    
+
                     if ($id_kelas) {
                         $file_name = 'User.png';
-    
-                        if (isset($_FILES['foto']['name']) && !empty($_FILES['foto']['name'])) {
+
+                        if (
+                            isset($_FILES['foto']['name']) &&
+                            !empty($_FILES['foto']['name'])
+                        ) {
                             $file_name = $_FILES['foto']['name'];
                             $file_temp = $_FILES['foto']['tmp_name'];
                             $kode = round(microtime(true) * 1000);
                             $file_name = $kode . '_' . $file_name;
                             $upload_path = './images/siswa/' . $file_name;
-    
+
                             if (move_uploaded_file($file_temp, $upload_path)) {
                             } else {
                                 $file_name = 'User.png';
                             }
                         }
-    
+
                         $data = [
                             'nama_siswa' => $nama_siswa,
                             'nisn' => $nisn,
@@ -472,9 +475,9 @@ class Admin extends CI_Controller
                             'id_kelas' => $id_kelas,
                             'foto' => $file_name,
                         ];
-    
+
                         $this->m_model->tambah_data('siswa', $data);
-    
+
                         $siswa_exist = $this->m_model->get_by_nisn($nisn);
                     }
                 }

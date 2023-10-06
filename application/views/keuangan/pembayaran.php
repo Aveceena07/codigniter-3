@@ -32,7 +32,7 @@
                 <!-- Modal toggle -->
 
 
-                <table class="min-w-full mt-3">
+                <table class="table-auto min-w-full mt-3">
                     <thead>
                         <tr>
                             <th class="text-left border border-black">No</th>

@@ -113,6 +113,22 @@ class M_model extends CI_Model
             return false;
         }
     }
+
+    // Fungsi untuk mengambil nama mapel berdasarkan id_mapel
+    public function get_mapel_by_id($id_mapel)
+    {
+        // Gantilah 'mapel' dengan nama tabel mapel Anda
+        $this->db->select('nama_mapel');
+        $this->db->where('id', $id_mapel);
+        $query = $this->db->get('mapel');
+
+        // Periksa apakah query berhasil
+        if ($query->num_rows() > 0) {
+            return $query->row(); // Mengembalikan hasil query
+        } else {
+            return null; // Jika tidak ada data yang ditemukan
+        }
+    }
 }
 
 ?>
